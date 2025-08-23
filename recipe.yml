@@ -1,5 +1,5 @@
-name: Custom Vanilla Desktop # Replace this name with your image name
-id: custom # Replace this ID with your image ID
+name: Planifolia # Replace this name with your image name
+id: planifolia # Replace this ID with your image ID
 stages:
 - id: build
   base: ghcr.io/vanilla-os/desktop:main # Optionally, Replace this image URL with a different one i.e. nvidia:main, etc
@@ -23,16 +23,13 @@ stages:
 
   # Put your custom actions below this comment
 
-  - name: example-packages # Sample module using the built-in Apt module to install packages
-    type: apt
-    source:
-      packages:
-      - vim
-
-  - name: example-commands # Sample module demonstrating the Shell module with custom commands
+  - name: install-mullvad # Sample module demonstrating the Shell module with custom commands
     type: shell
     commands:
-    - echo Example output
+    - curl -fsSLo /usr/share/keyrings/mullvad-keyring.asc https://repository.mullvad.net/deb/mullvad-keyring.asc
+    - echo "deb [signed-by=/usr/share/keyrings/mullvad-keyring.asc arch=$( dpkg --print-architecture )] https://repository.mullvad.net/deb/stable stable main" | tee /etc/apt/sources.list.d/mullvad.list
+    - apt update
+    - apt install mullvad-vpn
 
   - name: example-modules # Sample module demonstrating importing local and remote modules
     type: includes
