@@ -37,7 +37,7 @@ stages:
     type: shell
     commands:
       - cd /tmp
-      - git clone https://github.com/dlundqvist/xone
+      - git clone https://github.com/Figments/xone
       - cd xone
       - ./install.sh
 
